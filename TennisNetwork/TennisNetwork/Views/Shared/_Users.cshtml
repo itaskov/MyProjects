@@ -1,0 +1,98 @@
+﻿@using TennisNetwork.Models;
+@model SearchResultViewModel
+
+<div class="row">
+    <div class="col-md-4">
+        @foreach (var item in Model.UserViewModel)
+        {
+            <div class="list-group">
+                <a href="#" title="\Home\UserCalendar\?selectedUserId=@item.Id" class="list-group-item">
+                    <h4 class="list-group-item-heading">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h4>
+                    <p class="list-group-item-text">
+                        @Html.DisplayFor(modelItem => item.Level.Level) @Html.DisplayFor(modelItem => item.Country) @Html.DisplayFor(modelItem => item.Town)
+                    </p>
+                </a>
+            </div>
+        }
+        <div class="row">
+            <div class="col-md-12">
+                <nav>
+                    <ul class="pagination userPages">
+                        @*<li class="disabled" id="prev"><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>*@
+                        @for (int i = 1; i <= ViewBag.UserPages; i++)
+                        {
+                            @*<li class="@selectedPage">*@
+                            
+                            string selectedPage;
+                            if (ViewBag.SelectedPage == i)
+                            {
+                                selectedPage = "active";
+                            }
+                            else
+                            {
+                                selectedPage = "";
+                            }
+                            
+                            <li class="@selectedPage">
+                                @*@Ajax.ActionLink(i.ToString(), "Search", new*@
+                                @Html.ActionLink(i.ToString(), "Search", new
+                           {
+                               pageNumber = i,
+                               Level = Model.SearchUserViewModel.UserLevelId,
+                               Gender = Model.SearchUserViewModel.Gender,
+                               Country = Model.SearchUserViewModel.Country,
+                               Town = Model.SearchUserViewModel.Town,
+                               State = Model.SearchUserViewModel.State
+                           }
+                                //, new AjaxOptions
+                                //{
+                                //    UpdateTargetId = "partners",
+                                //    OnComplete = "selectUserPageNumber(" + i + ")"
+                                //}
+                                                )
+                            </li>
+                            //selectedPage = "";
+                        }
+                        @*<li id="next"><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>*@
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-8">
+        <div id="userCalendar">
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    // Ajax over user click.
+    $('.list-group a').on("click", null, null, function () {
+        url = $(this).attr('title');
+        $.ajax({
+            url: url,
+            data: $(this).serialize(),
+            success: function (result) {
+                $('#userCalendar').html(result);
+            }
+        });
+
+    });
+
+    // Pager click.
+    $('.userPages').on("click", null, null, function (e) {
+        //alert($(e.target).text());
+        page = $(e.target).text();
+        $('.userPages li[class=active]').removeClass('active');
+        page.addClass('active')
+        //selectUserPageNumber();
+    });
+
+    //function selectUserPageNumber(pageNumber) {
+    //    $('.userPages li[class=active]').removeClass('active');
+    //    $('.userPages li:contains("' + pageNumber + '")').addClass('active');
+    //}
+</script>

@@ -1,0 +1,43 @@
+﻿@*@model Nullable<DateTime>
+
+    @{
+
+        DateTime dt = DateTime.Now;
+
+        if (Model != null)
+        {
+
+            dt = (System.DateTime)Model;
+
+        }
+
+        @Html.TextBox("", String.Format("{0:d}", dt.ToShortDateString()), new { @class = "form-control datepicker", type = "date" })
+
+    }*@
+@*@model DateTime?
+    @Html.TextBox("", (Model.HasValue ? Model.Value.ToShortDateString() : string.Empty), new
+    {
+        //@class = "datepicker",
+        data_date_format = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower()
+    })*@
+@model DateTime?
+
+<span class="input-group-addon">
+    <span class="glyphicon glyphicon-calendar"></span>
+</span>
+@Html.TextBox("", Model.HasValue ? Model.Value.ToShortDateString() : String.Empty, new { @class = "input form-control datepicker" })
+
+<script type="text/javascript">
+    fieldName = '@ViewData.ModelMetadata.PropertyName';
+
+    if (fieldName === 'EndDate') {
+        
+        $('#end-datepicker').datepicker('setDate', new Date(@Model.Value.Year, @Model.Value.Month - 1, @Model.Value.Day)).datepicker('update')
+    }
+    if (fieldName === 'StartDate') {
+        startDateInit();
+        endDateInit();
+        $('#start-datepicker').datepicker('setDate', new Date(@Model.Value.Year, @Model.Value.Month - 1, @Model.Value.Day)).datepicker('update')
+    }
+
+</script>

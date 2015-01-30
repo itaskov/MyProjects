@@ -1,0 +1,17 @@
+﻿@model IEnumerable<TennisNetwork.Models.AutomapperEventViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach (var ev in Model)
+{
+    <div>
+        @*Id: @ev.Id*@
+        Start date: @ev.StartDateTime
+        End date: @ev.EndDateTime
+    </div>
+}
+
