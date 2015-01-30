@@ -12,6 +12,24 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisNetwork.Tests", "TennisNetwork.Tests\TennisNetwork.Tests.csproj", "{4596A314-CB09-4577-8EB8-89F6A46EF588}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://itaskov.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = TennisNetwork.Models\\TennisNetwork.Models.csproj
+		SccProjectName1 = TennisNetwork.Models
+		SccLocalPath1 = TennisNetwork.Models
+		SccProjectUniqueName2 = TennisNetwork.Data\\TennisNetwork.Data.csproj
+		SccProjectName2 = TennisNetwork.Data
+		SccLocalPath2 = TennisNetwork.Data
+		SccProjectUniqueName3 = TennisNetwork\\TennisNetwork.Web.csproj
+		SccProjectName3 = TennisNetwork
+		SccLocalPath3 = TennisNetwork
+		SccProjectUniqueName4 = TennisNetwork.Tests\\TennisNetwork.Tests.csproj
+		SccProjectName4 = TennisNetwork.Tests
+		SccLocalPath4 = TennisNetwork.Tests
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
