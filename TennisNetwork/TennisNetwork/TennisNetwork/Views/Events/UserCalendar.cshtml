@@ -1,0 +1,107 @@
+﻿@using TennisNetwork.Helpers;
+@model IEnumerable<TennisNetwork.Models.CreateEventViewModel>
+
+<div class="panel panel-success">
+    <div class="panel-heading">People</div>
+    <div class="pull-right">
+        @Html.GlyphiconActionLink("<span class='glyphicon glyphicon-plus'></span>", "Create new event", "Create", "Events",
+                              routeValues: new { pageNumber = @ViewBag.PageNumber }, htmlAttributes: new { data_modal = "", id = "btnCreate", @class = "btn btn-small btn-success pull-right" })
+    </div>
+
+    <table class="table table-responsive table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EventType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    <div class="pull-right btn-">
+                        @if (item.UserId == User.Identity.GetUserId())
+                        {
+                            @Html.GlyphiconActionLink("<span class='glyphicon glyphicon-pencil'></span>", "Edit event", "Edit", "Events",
+                            routeValues: new { id = item.Id, pageNumber = @ViewBag.PageNumber }, htmlAttributes: new { data_modal = "", @class = "btn btn-default" })
+                        }
+                        &nbsp;
+                        @Html.GlyphiconActionLink("<span class='glyphicon glyphicon-trash'></span>", "Delete event", "Delete", "Events",
+                 routeValues: new { id = item.Id, pageNumber = @ViewBag.PageNumber }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger" })
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <div class="panel-footer">Count = @ViewBag.Events</div>
+</div>
+
+<nav>
+    <ul class="pagination">
+        @*<li class="disabled" id="prev"><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>*@
+        @for (int i = 1; i <= ViewBag.Pages; i++)
+        {
+            string selectedPage;
+            if (ViewBag.PageNumber == i)
+            {
+                selectedPage = "active";
+            }
+            else
+            {
+                selectedPage = "";
+            }
+            
+            <li class="@selectedPage">
+                @Ajax.ActionLink(i.ToString(), "UserCalendar", new { pageNumber = i },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = "userCalendar",
+                        OnComplete = "selectPageNumber(" + i + ", " + ViewBag.Pages + ")"
+                    })
+            </li>
+            //selectedPage = "";
+        }
+        @*<li id="next"><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>*@
+    </ul>
+</nav>
+
+<script type="text/javascript">
+    function selectPageNumber(pageNumber, pages) {
+        $('li[class=active]').removeClass('active');
+        $('li:contains("' + pageNumber + '")').addClass('active');
+    }
+
+</script>
+
+@Scripts.Render("~/bundles/modalForm")
+@Scripts.Render("~/bundles/createEvent")

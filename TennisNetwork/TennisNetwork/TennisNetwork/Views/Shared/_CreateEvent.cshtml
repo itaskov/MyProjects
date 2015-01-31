@@ -1,0 +1,113 @@
+﻿@using TennisNetwork.Models
+@model CreateEventViewModel
+
+<style>
+    .datepicker {
+        z-index: 1151 !important;
+    }
+</style>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Create new event</h4>
+</div>
+
+@using (Html.BeginForm("Create", "Events", FormMethod.Post, new { @class = "form-horizontal sandbox-form", @id = "sandbox", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    
+    @Html.Hidden("UserId")
+    @Html.Hidden("PageNumber")
+
+    <div class="modal-body">
+
+        @*<div class="well">*@
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.EventType, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(m => m.EventType, new { @class = "form-control", @name = "start" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.StartDate, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <div class="input-group date" id="start-datepicker">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            @Html.TextBoxFor((m => m.StartDate), new { @class = "input form-control" })
+                            @*@Html.TextBox("StartDate", DateTime.Now.Year + "-" +
+                                                    +DateTime.Now.Month + "-" +
+                                                    +DateTime.Now.Day, new { @class = "form-control datepicker" })*@
+                        </div>
+                        @Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.EndDate, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <div class="input-group date" id="end-datepicker">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            @Html.TextBoxFor((m => m.EndDate), new { @class = "form-control" })
+                            @*@Html.TextBox("EndDate", DateTime.Now.Year + "-" +
+                                                   +DateTime.Now.Month + "-" +
+                                +DateTime.Now.Day, new { @class = "form-control datepicker" })*@
+                        </div>
+                        @Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.StartTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <div class="input-group" id="start-clockpicker" data-align="top" data-autoclose="true">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                            @Html.TextBoxFor((m => m.StartTime), new { @class = "form-control" })
+                            @*@Html.TextBox("StartTime", DateTime.Now.TimeOfDay.ToString(), new { @class = "form-control" })*@
+                        </div>
+                        @Html.ValidationMessageFor(m => m.StartTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.EndTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <div class="input-group" id="end-clockpicker" data-align="top" data-autoclose="true">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                            @Html.TextBoxFor((m => m.EndTime), new { @class = "input form-control" })
+                            @*@Html.TextBox("EndTime", DateTime.Now.TimeOfDay.ToString(), new { @class = "form-control" })*@
+                        </div>
+                        @Html.ValidationMessageFor(m => m.EndTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*</div>*@
+
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+        <input class="btn btn-primary pull-left" type="submit" value="Create" />
+    </div>
+}
+
+@Scripts.Render("~/bundles/createEvent")

@@ -1,0 +1,60 @@
+﻿@using TennisNetwork.Models;
+@model SearchUserViewModel
+@{
+    ViewBag.Title = "Find new partner";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@*@using (Ajax.BeginForm("Search", null, new AjaxOptions
+                                        {
+                                            HttpMethod = "Get",
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = "partners"
+                                        }, new { @class = "form-inline", role = "form" }
+                        )
+            )
+    {*@
+@using (Html.BeginForm("Search", "Home", FormMethod.Get, new { @class = "form-inline", role = "form" }
+                    )
+        )
+{
+    @*@Html.AntiForgeryToken()*@
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserLevelId, new
+       { @*@class="sr-only"*@ })
+        @*@Html.DropDownListFor(m => m.Level, Model.Levels, "Level", new { @class = "form-control", @placeholder = "Select level" })*@
+        @Html.DropDownList("UserLevelId", null, "Select level", new { @class = "form-control", @placeholder = "Select level" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Gender, new
+   { @*@class = "sr-only"*@ })
+        @Html.EnumDropDownListFor(m => m.Gender, "Gender", new { @class = "form-control", placeholder = "Gender" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Country, new
+   { @*@class = "sr-only"*@ })
+        @*@Html.TextBoxFor(m => m.Country, new { @class = "form-control", placeholder = "Country" })*@
+        @Html.EditorFor(m => m.Country, new { htmlAttributes = new { @class = "form-control", placeholder = "Country" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Town, new
+   { @*@class = "sr-only"*@ })
+        @Html.TextBoxFor(m => m.Town, new { @class = "form-control", placeholder = "Town" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.State, new
+    { @*@class = "sr-only"*@ })
+        @Html.TextBoxFor(m => m.State, new { @class = "form-control", placeholder = "State" })
+    </div>
+    <button type="submit" class="btn btn-default">Search</button>
+}
+
+@*<br />
+
+    <div id="partners">
+
+    </div>*@
