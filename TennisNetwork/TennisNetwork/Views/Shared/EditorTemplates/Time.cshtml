@@ -1,6 +1,0 @@
-﻿@model DateTime?
-
-<span class="input-group-addon">
-    <span class="glyphicon glyphicon-time"></span>
-</span>
-@Html.TextBox("", Model.HasValue ? Model.Value.ToLongTimeString() : String.Empty, new { @class = "form-control" })
