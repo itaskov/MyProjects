@@ -13,10 +13,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TennisNetwork.Data;
 using TennisNetwork.Models;
+using TennisNetwork.AppHarbor;
 
 namespace TennisNetwork.Controllers
 {
-    [RequireHttps]
+    [TennisNetwork.AppHarbor.RequireHttpsAttribute]
     [Authorize]
     public class AccountController : BaseController
     {

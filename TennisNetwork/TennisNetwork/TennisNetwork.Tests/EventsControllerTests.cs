@@ -225,29 +225,29 @@ namespace TennisNetwork.Tests
             Assert.AreEqual(HttpStatusCode.BadRequest, (HttpStatusCode)result.StatusCode);
         }
 
-        //[TestMethod]
-        //public void DeleteMethodShouldReturnHttpNotFound()
-        //{
-        //    var eventList = new List<Event>
-        //    {
-        //        new Event{ Id = 1, Users = new List<ApplicationUser>{new ApplicationUser{ Id = "1"}}},
-        //        new Event{ Id = 2, Users = new List<ApplicationUser>{new ApplicationUser{ Id = "1"}}},
-        //        new Event{ Id = 3, Taken = true, Users = new List<ApplicationUser>{new ApplicationUser{ Id = "1"}}},
-        //        new Event{ Id = 4, Users = new List<ApplicationUser>{new ApplicationUser{ Id = "2"}}},
-        //    };
+        [TestMethod]
+        public void DeleteMethodShouldReturnHttpNotFound()
+        {
+            var eventList = new List<Event>
+            {
+                new Event{ Id = 1, Users = new List<ApplicationUser>{new ApplicationUser{ Id = "1"}}},
+                new Event{ Id = 2, Users = new List<ApplicationUser>{new ApplicationUser{ Id = "1"}}},
+                new Event{ Id = 3, Taken = true, Users = new List<ApplicationUser>{new ApplicationUser{ Id = "1"}}},
+                new Event{ Id = 4, Users = new List<ApplicationUser>{new ApplicationUser{ Id = "2"}}},
+            };
 
-        //    var eventsRepoMock = new Mock<IRepository<Event>>(MockBehavior.Strict);
-        //    eventsRepoMock.Setup(x => x.All()).Returns(eventList.AsQueryable());
+            var eventsRepoMock = new Mock<IRepository<Event>>(MockBehavior.Strict);
+            eventsRepoMock.Setup(x => x.All()).Returns(eventList.AsQueryable());
 
-        //    var uowDataMock = new Mock<IUowData>(MockBehavior.Strict);
-        //    uowDataMock.Setup(x => x.Events).Returns(eventsRepoMock.Object);
-            
-        //    var controller = new EventsController();
+            var uowDataMock = new Mock<IUowData>(MockBehavior.Strict);
+            uowDataMock.Setup(x => x.Events).Returns(eventsRepoMock.Object);
 
-        //    var result = controller.Delete(5, null) as HttpNotFoundResult;
+            var controller = new EventsController();
 
-        //    Assert.AreEqual(new HttpNotFoundResult().StatusCode, result.StatusCode);
-        //}
+            var result = controller.Delete(5, null) as HttpNotFoundResult;
+
+            Assert.AreEqual(new HttpNotFoundResult().StatusCode, result.StatusCode);
+        }
 
         [TestMethod]
         public void DeleteMethodShouldReturnEventToDelete()
