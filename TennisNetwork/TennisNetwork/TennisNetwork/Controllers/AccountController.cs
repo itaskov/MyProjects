@@ -16,6 +16,7 @@ using TennisNetwork.Models;
 
 namespace TennisNetwork.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class AccountController : BaseController
     {
