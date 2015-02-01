@@ -66,7 +66,7 @@ namespace TennisNetwork.Controllers
             {
                 var ev = CreateEventViewModel.ToEvent(model, this);
                 this.Data.Events.Add(ev);
-                this.Data.SaveChangesAsync();
+                this.Data.SaveChanges();
                 
                 string url = Url.Action("UserCalendar", "Events");
                 return Json(new { success = true, url = url });
@@ -92,7 +92,7 @@ namespace TennisNetwork.Controllers
                 ev.Taken = manager.IsEventTaken();
 
                 ev.Users.Add(this.Data.Users.All().First(u => u.Id == this.UserId));
-                this.Data.SaveChangesAsync();
+                this.Data.SaveChanges();
 
                 string url = Url.Action("Index", "Events");
                 return Json(new { taken = false, url = url });

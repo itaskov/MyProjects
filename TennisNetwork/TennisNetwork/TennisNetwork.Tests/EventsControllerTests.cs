@@ -95,7 +95,9 @@ namespace TennisNetwork.Tests
             var uowDataMock = new Mock<IUowData>(MockBehavior.Strict);
             uowDataMock.Setup(x => x.Events).Returns(eventsRepoMock.Object);
             bool isSaveChangesExecuted = false;
-            uowDataMock.Setup(x => x.SaveChangesAsync()).Returns(It.IsAny<Task<int>>).Callback(() => isSaveChangesExecuted = true);
+            
+            // For Async version: uowDataMock.Setup(x => x.SaveChangesAsync()).Returns(It.IsAny<Task<int>>).Callback(() => isSaveChangesExecuted = true);
+            uowDataMock.Setup(x => x.SaveChanges()).Returns(It.IsAny<int>).Callback(() => isSaveChangesExecuted = true);
             uowDataMock.Setup(x => x.Users).Returns(usersRepoMock.Object);
 
             var routes = new RouteCollection();
@@ -177,7 +179,7 @@ namespace TennisNetwork.Tests
             uowDataMock.Setup(x => x.Events).Returns(eventsRepoMock.Object);
             uowDataMock.Setup(x => x.Users).Returns(usersRepoMock.Object);
             bool isSaveChangesAsyncExecuted = false;
-            uowDataMock.Setup(x => x.SaveChangesAsync()).Returns(It.IsAny<Task<int>>).Callback(() => isSaveChangesAsyncExecuted = true);
+            uowDataMock.Setup(x => x.SaveChanges()).Returns(It.IsAny<int>).Callback(() => isSaveChangesAsyncExecuted = true);
             
             var controller = new EventsController(uowDataMock.Object);
 
