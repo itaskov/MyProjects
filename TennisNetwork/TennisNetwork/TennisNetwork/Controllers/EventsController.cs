@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using System.Net;
 using System.Data.Entity;
 using TennisNetwork.Data;
+using Microsoft.Web.Mvc;
 
 namespace TennisNetwork.Controllers
 {
@@ -50,6 +51,8 @@ namespace TennisNetwork.Controllers
             return PartialView("UserCalendar", events.ToList());
         }
 
+        [AjaxOnly]
+        [HttpGet]
         public ActionResult Create(int? pageNumber)
         {
             ViewBag.UserId = this.UserId;

@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using TennisNetwork.Data;
+using Microsoft.Web.Mvc;
 
 namespace TennisNetwork.Controllers
 {
@@ -50,20 +51,7 @@ namespace TennisNetwork.Controllers
             return View("Index", model);
         }
 
-        private IQueryable<ApplicationUser> GetUsers(SearchUserViewModel model, int pageNumber, int usersPageSize = UsersPageSize)
-        {
-            return this.Data.Users.All()
-                                  .Where(u => !model.UserLevelId.HasValue || u.UserLevelId == model.UserLevelId)
-                                  .Where(u => model.Gender == 0 || u.Gender == model.Gender)
-                                  .Where(u => model.Country == null || u.Addresses.Any(a => a.Country == model.Country))
-                                  .Where(u => model.Town == null || u.Addresses.Any(a => a.Town == model.Town))
-                                  .Where(u => model.State == null || u.Addresses.Any(a => a.State == model.State))
-                                  .Where(u => u.Id != this.UserId)
-                                  .OrderBy(u => u.Id)
-                                  .Skip((pageNumber - 1) * usersPageSize)
-                                  .Take(usersPageSize);
-        }
-
+        [AjaxOnly]
         public ActionResult UserCalendar(int? pageNumber, string selectedUserId)
         {
             var page = pageNumber.GetValueOrDefault(1);
@@ -103,6 +91,20 @@ namespace TennisNetwork.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        private IQueryable<ApplicationUser> GetUsers(SearchUserViewModel model, int pageNumber, int usersPageSize = UsersPageSize)
+        {
+            return this.Data.Users.All()
+                                  .Where(u => !model.UserLevelId.HasValue || u.UserLevelId == model.UserLevelId)
+                                  .Where(u => model.Gender == 0 || u.Gender == model.Gender)
+                                  .Where(u => model.Country == null || u.Addresses.Any(a => a.Country == model.Country))
+                                  .Where(u => model.Town == null || u.Addresses.Any(a => a.Town == model.Town))
+                                  .Where(u => model.State == null || u.Addresses.Any(a => a.State == model.State))
+                                  .Where(u => u.Id != this.UserId)
+                                  .OrderBy(u => u.Id)
+                                  .Skip((pageNumber - 1) * usersPageSize)
+                                  .Take(usersPageSize);
         }
     }
 }
